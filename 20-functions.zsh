@@ -28,15 +28,14 @@ detach() {
 }
 compdef _command detach
 
-iscommand pip \
-    && pip() {
-        if [[ -z "${VIRTUAL_ENV}" ]]; then
-            echo "${0}: use outside virtualenv prohibited" >&2
-            return 1
-        fi
+iscommand pip && pip() {
+    if [[ -z "${VIRTUAL_ENV}" ]]; then
+        echo "${0}: use outside virtualenv prohibited" >&2
+        return 1
+    fi
 
-        command pip "${@}"
-    }
+    command pip "${@}"
+}
 
 iscommand virtualenv && venv() {
     if [[ "${#}" -eq 1 ]]; then

@@ -19,14 +19,14 @@ unset root_cmds
 #so sudo/doas works with aliases
 [[ -n "${GET_ROOT}" ]] && alias "${GET_ROOT}"="${GET_ROOT} "
 
-alias - -='cd -'
-
-alias :q='exit'
-
 if [[ -n "${GET_ROOT}" ]]; then
     alias _="${GET_ROOT} "
     compdef "_${GET_ROOT}" _="${GET_ROOT}"
 fi
+
+alias - -='cd -'
+
+alias :q='exit'
 
 #ask for confirmation before overwrite
 alias cp='cp -iv'
@@ -69,11 +69,6 @@ iscommand tree && alias tree='tree -C'
 if iscommand yt-dlp; then
     alias yt='yt-dlp'
     compdef _yt-dlp yt=yt-dlp
-fi
-
-if iscommand yt; then
-    iscommand ffmpeg
-    alias ytm='yt -f 140 --add-metadata --write-thumbnail'
 fi
 
 iscommand cargo \
