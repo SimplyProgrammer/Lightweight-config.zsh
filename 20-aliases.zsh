@@ -16,10 +16,10 @@ done
 
 unset root_cmds
 
-#so sudo/doas works with aliases
-[[ -n "${GET_ROOT}" ]] && alias "${GET_ROOT}"="${GET_ROOT} "
-
 if [[ -n "${GET_ROOT}" ]]; then
+    #so sudo/doas works with aliases
+    alias "${GET_ROOT}"="${GET_ROOT} "
+
     alias _="${GET_ROOT} "
     compdef "_${GET_ROOT}" _="${GET_ROOT}"
 fi

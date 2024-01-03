@@ -16,7 +16,7 @@
         dir="../${dir}"
     done
 
-    cd "${dir}" || exit 1
+    cd "${dir}" || return 1
 }
 
 cc() {
