@@ -28,7 +28,7 @@ auto-ls-ls() {
 auto-ls-git-status() {
     [[ -n "${NO_AUTO_GIT}" ]] && return
     if [[ $(git rev-parse --is-inside-work-tree 2> /dev/null) == true ]]; then
-        git remote update
+        # git remote update
         git status
     fi
 }
