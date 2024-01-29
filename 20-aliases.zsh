@@ -28,7 +28,10 @@ alias - -='cd -'
 
 alias :q='exit'
 
-#ask for confirmation before overwrite
+# I keep mistyping this because of colemak
+alias Oqa=':qa'
+
+# ask for confirmation before overwrite
 alias cp='cp -iv'
 alias ln='ln -bv'
 alias mv='mv -iv'
