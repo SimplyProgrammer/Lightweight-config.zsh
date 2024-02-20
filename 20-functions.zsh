@@ -20,7 +20,8 @@
 }
 
 cc() {
-    "${CC:-gcc}" -ggdb -Wall -Wextra "${@}"
+    # shellcheck disable=2296
+    ${(z)CC:-gcc} -ggdb -Wall -Wextra "${@}"
 }
 
 detach() {
