@@ -29,9 +29,27 @@ _ssh_after_prompt() {
 
 _current_dir() {
     local color='%F{blue}'
-    [[ -w "$(pwd)" ]] || color='%F{red}'
+    [[ -w "${PWD}" ]] || color='%F{red}'
 
-    echo -n "%B${color}%~%f%b"
+    local path="${PWD/#${HOME}/~}"
+    if [[ "${path}" != "~" ]]; then
+        local prefix=""
+        for segment in "${(s./.)path:h}"; do
+            if [[ -z "$segment" ]]; then
+                prefix="/"
+                continue
+            fi
+
+            if [[ "${segment:0:1}" = "." ]]; then
+                prefix="${prefix}${segment:0:2}/"
+            else
+                prefix="${prefix}${segment:0:1}/"
+            fi
+        done
+        path="${prefix}${path:t}"
+    fi
+
+    echo -n "%B${color}${path}%f%b"
 }
 
 PROMPT=''
