@@ -18,27 +18,27 @@ unsetopt menu_complete
 unsetopt flowcontrol
 
 zsh_options=(
-    always_to_end
-    auto_cd
-    auto_pushd
-    auto_menu
-    cdable_vars
-    complete_aliases
-    complete_in_word
-    correct
-    extended_history
-    hist_append
-    hist_expire_dups_first
-    hist_ignore_dups
-    hist_ignore_space
-    hist_reduce_blanks
-    hist_save_no_dups
-    hist_verify
-    inc_append_history
-    prompt_subst
-    pushdminus
-    pushd_ignore_dups
-    share_history
+    ALWAYS_TO_END
+    AUTO_CD
+    AUTO_PUSHD
+    AUTO_MENU
+    CDABLE_VARS
+    COMPLETE_ALIASES
+    COMPLETE_IN_WORD
+    CORRECT
+    EXTENDED_HISTORY
+    HIST_APPEND
+    HIST_EXPIRE_DUPS_FIRST
+    HIST_IGNORE_DUPS
+    HIST_IGNORE_SPACE
+    HIST_REDUCE_BLANKS
+    HIST_SAVE_NO_DUPS
+    HIST_VERIFY
+    INC_APPEND_HISTORY
+    PROMPT_SUBST
+    PUSHDMINUS
+    PUSHD_IGNORE_DUPS
+    SHARE_HISTORY
 )
 
 for option in "${zsh_options[@]}"; do
