@@ -76,3 +76,8 @@ fi
 
 iscommand cargo \
     && alias cargo-workspace-doc='cargo doc --offline --open --target-dir ~/.cache/ --workspace'
+
+iscommand wl-paste qrencode \
+    && alias qrpaste='wl-paste -n | qrencode -m 4 -t UTF8'
+
+iscommand zig && alias zig-doc='zig std --port 37825 --no-open-browser'
