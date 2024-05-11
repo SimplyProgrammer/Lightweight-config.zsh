@@ -14,8 +14,8 @@ HYPHEN_INSENSITIVE=true
 
 COMPLETION_WAITING_DOTS='true'
 
-unsetopt menu_complete
-unsetopt flowcontrol
+unsetopt MENU_COMPLETE
+unsetopt FLOWCONTROL
 
 zsh_options=(
     ALWAYS_TO_END
