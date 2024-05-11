@@ -19,13 +19,18 @@
     cd "${dir}" || return 1
 }
 
+apk() {
+    command apk "${@}" && rehash
+}
+
 cc() {
     # shellcheck disable=2296
     ${(z)CC:-gcc} -ggdb -Wall -Wextra "${@}"
 }
 
+# shellcheck disable=1009,1035,1072,1073
 detach() {
-    (nohup "${@}" < /dev/null > /dev/null 2>&1 &)
+    "${@}" > /dev/null 2>&1 &!
 }
 compdef _command detach
 
