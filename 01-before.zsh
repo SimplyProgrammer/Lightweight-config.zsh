@@ -3,6 +3,7 @@
 
 command -v compdef > /dev/null || {
     autoload -Uz compinit && compinit
+    autoload -Uz bashcompinit && bashcompinit
 }
 
 iscommand() {

@@ -19,7 +19,7 @@
     cd "${dir}" || return 1
 }
 
-apk() {
+iscommand apk && apk() {
     command apk "${@}" && rehash
 }
 
@@ -68,3 +68,27 @@ iscommand qrencode && qr() {
     echo
     qrencode "${text}" -m 4 -t UTF8
 }
+
+_current_dir() {
+    local path="${PWD/#${HOME}/~}"
+
+    if [[ "${path}" != "~" ]]; then
+        local prefix=""
+        for segment in "${(s./.)path:h}"; do
+            if [[ -z "$segment" ]]; then
+                prefix="/"
+                continue
+            fi
+
+            if [[ "${segment:0:1}" = "." ]]; then
+                prefix="${prefix}${segment:0:2}/"
+            else
+                prefix="${prefix}${segment:0:1}/"
+            fi
+        done
+        path="${prefix}${path:t}"
+    fi
+
+    echo -n "${path}"
+}
+

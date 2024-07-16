@@ -8,7 +8,9 @@ ZSH_THEME_GIT_PROMPT_CLEAN=""
 _venv_prompt_info() {
     if [[ -n ${VIRTUAL_ENV} ]]; then
         printf '<%%F{green}%s%%f>' "${VIRTUAL_ENV:t:gs/%/%%}"
-    elif [[ -f bin/activate ]]; then
+    elif sh -c 'export DIR="$(pwd)"; while [ "$(realpath "${DIR}")" != '/' ]; do [ -f "${DIR}/bin/activate" ] && { exit 0; break; }; DIR="${DIR}/.."; done; exit 1'
+    then
+        # the thing above does not work in zsh
         printf '<%%F{yellow}!%s%%f>' "${PWD:t:gs/%/%%}"
     fi
 }
@@ -27,29 +29,11 @@ _ssh_after_prompt() {
     printf '%s' "${SSH_CONNECTION}" | awk '{print $3}'
 }
 
-_current_dir() {
+_current_dir_prompt() {
     local color='%F{blue}'
     [[ -w "${PWD}" ]] || color='%F{red}'
 
-    local path="${PWD/#${HOME}/~}"
-    if [[ "${path}" != "~" ]]; then
-        local prefix=""
-        for segment in "${(s./.)path:h}"; do
-            if [[ -z "$segment" ]]; then
-                prefix="/"
-                continue
-            fi
-
-            if [[ "${segment:0:1}" = "." ]]; then
-                prefix="${prefix}${segment:0:2}/"
-            else
-                prefix="${prefix}${segment:0:1}/"
-            fi
-        done
-        path="${prefix}${path:t}"
-    fi
-
-    echo -n "%B${color}${path}%f%b"
+    echo -n "%B${color}$(_current_dir)%f%b"
 }
 
 PROMPT=''
@@ -58,7 +42,7 @@ prompt_parts=(
     '$(_ssh_before_prompt)'
     '%B%(!.%F{red}.%F{green})%n%f%b'
     '$(_ssh_after_prompt)'
-    ' $(_current_dir)'
+    ' $(_current_dir_prompt)'
     ' $(git_prompt_info)'
     '$(_venv_prompt_info)'
     $'\n╰─%B%(!.#.$)%b '

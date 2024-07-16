@@ -4,11 +4,10 @@
 root_cmds=(
     doas
     sudo
-    'su -c'
 )
 
 for cmd in "${root_cmds[@]}"; do
-    if iscommand "${cmd% *}"; then
+    if iscommand "${cmd}"; then
         GET_ROOT="${cmd}"
         break
     fi
@@ -40,6 +39,11 @@ alias rd='rmdir'
 
 iscommand diff && alias diff='diff --color'
 
+if iscommand git && [[ -d ~/.dotfiles.git ]]; then
+    alias dotfiles='git --git-dir=$HOME/.dotfiles.git --work-tree=$HOME'
+    compdef _git dotfiles=git
+fi
+
 if iscommand rg; then
     alias grep='rg -i'
 else
@@ -65,6 +69,8 @@ if iscommand nvim; then
     alias vim='nvim'
 fi
 
+iscommand nsxiv && alias nsxiv='nsxiv --anti-alias=no'
+
 iscommand ssh && alias ssh='env -i EDITOR=vim TERM=xterm-256color ssh'
 
 iscommand ssh-add && [[ -f ~/.ssh/id_ed25519 ]] \
@@ -76,6 +82,8 @@ if iscommand yt-dlp; then
     alias yt='yt-dlp'
     compdef _yt-dlp yt=yt-dlp
 fi
+
+iscommand jq && alias urlencode='jq -sRr @uri'
 
 iscommand cargo \
     && alias cargo-workspace-doc='cargo doc --offline --open --target-dir ~/.cache/ --workspace'
