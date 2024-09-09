@@ -34,6 +34,13 @@ detach() {
 }
 compdef _command detach
 
+iscommand incus && incus-login() {
+    local name="${1}"
+    shift
+
+    incus exec "${name}" -- sudo --user user --login -- "${@}"
+}
+
 iscommand pip && pip() {
     if [[ -z "${VIRTUAL_ENV}" ]]; then
         echo "${0}: use outside virtualenv prohibited" >&2
@@ -43,11 +50,15 @@ iscommand pip && pip() {
     command pip "${@}"
 }
 
-iscommand virtualenv && venv() {
-    if [[ "${#}" -eq 1 ]]; then
-        source "${1}/bin/activate"
+iscommand python && venv() {
+    local activate="${1}${1+:/}bin/activate"
+
+    if [[ -f "${activate}" ]]; then
+        source "${activate}"
+    elif [[ "${#}" -eq 0 ]] && [[ -f "venv/${activate}" ]]; then
+        source "venv/${activate}"
     else
-        source bin/activate
+        echo "${0}: no such file or directory '${activate}'"
     fi
 }
 
@@ -68,6 +79,16 @@ iscommand qrencode && qr() {
     echo
     qrencode "${text}" -m 4 -t UTF8
 }
+
+wcat() {
+    if [[ $# -ne 1 ]]; then
+        echo "${0}: needs exactly one argument" >&2
+        return 1
+    fi
+
+    cat "$(which "${1}")"
+}
+compdef _command wcat
 
 _current_dir() {
     local path="${PWD/#${HOME}/~}"
