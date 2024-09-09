@@ -39,8 +39,8 @@ alias rd='rmdir'
 
 iscommand diff && alias diff='diff --color'
 
-if iscommand git && [[ -d ~/.dotfiles.git ]]; then
-    alias dotfiles='git --git-dir=$HOME/.dotfiles.git --work-tree=$HOME'
+if iscommand git && [[ -d ~/.files.git ]]; then
+    alias dotfiles='git --git-dir=$HOME/.files.git --work-tree=$HOME'
     compdef _git dotfiles=git
 fi
 
