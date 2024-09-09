@@ -71,12 +71,14 @@ fi
 
 iscommand nsxiv && alias nsxiv='nsxiv --anti-alias=no'
 
-iscommand ssh && alias ssh='env -i EDITOR=vim TERM=xterm-256color ssh'
+iscommand ssh && alias ssh='env EDITOR=vim TERM=xterm-256color ssh'
 
 iscommand ssh-add && [[ -f ~/.ssh/id_ed25519 ]] \
     && alias ssh-add-main='ssh-add ~/.ssh/id_ed25519'
 
 iscommand tree && alias tree='tree -C'
+
+iscommand python && alias virtualenv='python -m venv'
 
 if iscommand yt-dlp; then
     alias yt='yt-dlp'
