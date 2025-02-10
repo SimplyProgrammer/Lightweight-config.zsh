@@ -1,2 +1,25 @@
 # Lightweight-config.zsh
-Lightweight yet powerfull zsh configuration.
+Lightweight yet powerful zsh configuration. If you are using bash, you are going to love this...
+## Notable features:
+* Prompt coloring
+* Tab completions (including flags)
+* Smart suggestions
+* Easy navigation, no cd needed
+* And more...
+<be>
+
+"Silent" fork of https://git.sr.ht/~ashie/config.zsh
+<be>
+
+## Additional features:
+* Some aliases
+* Easy file opening:
+  * When you type a file name into the shell, instead of printing "invalid command", it will open the file in your favorite editor. Providing that the file exists.
+  * The same will occur when you type a path to a valid file that can't be executed (no x permission). For example, typing /etc/hosts will open hosts in your favorite editor. If /etc/hosts would not exist for some reason you will be given an option to create it including the path and edit it subsequently!
+* Simplified build process. Only a few external dependencies, no o-my-zsh required...
+
+## Install
+Only git is required.
+```
+git clone "https://github.com/zsh-users/${plugin}" "/usr/share/zsh/plugins/${plugin}"
+```
