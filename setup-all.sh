@@ -1,4 +1,4 @@
-#!/usr/bin/env zsh
+#!/bin/bash
 
 # apt install git  is required...
 # download zsh-users plugins
@@ -8,7 +8,7 @@ plugins=('zsh-autosuggestions' 'zsh-completions' 'zsh-syntax-highlighting')
 
 apt install zsh
 for plugin in "${plugins[@]}"; do
-	  mkdir -p "/usr/share/zsh/plugins/${plugin}" && cd "$_" && git clone "https://github.com/zsh-users/${plugin}" .
+	  git clone "https://github.com/zsh-users/${plugin}" "/usr/share/zsh/plugins/${plugin}"
 done
 
 ./build.sh
