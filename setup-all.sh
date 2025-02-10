@@ -8,7 +8,7 @@ plugins=('zsh-autosuggestions' 'zsh-completions' 'zsh-syntax-highlighting')
 
 apt install zsh
 for plugin in "${plugins[@]}"; do
-	  git clone "https://github.com/zsh-users/${plugin}" "/usr/share/zsh/plugins/${plugin}"
+	  mkdir -p "/usr/share/zsh/plugins/${plugin}" && cd "$_" && git clone "https://github.com/zsh-users/${plugin}" .
 done
 
 ./build.sh
