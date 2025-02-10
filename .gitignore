@@ -1,0 +1,4 @@
+.zcompcache
+.zcompdump
+*.zwc
+90-local.zsh
