@@ -19,8 +19,9 @@ Lightweight yet powerful zsh configuration. If you are using bash, you are going
 * Simplified build process. Only a few external dependencies, no o-my-zsh required...
 
 ## Install
-It should be compatible with any POSIX-compliant system that supports zsh. Windows is not supported...<br>
-Only git is required.
+It should be compatible with any POSIX-compliant system that supports zsh.
+Only git is required (End pressing Y couple of times).
 ```
 mkdir -p ~/.config/zsh/config.zsh && cd "$_" && git clone "https://github.com/SimplyProgrammer/Lightweight-config.zsh.git" . && chmod 755 build.sh setup-all.sh && ./setup-all.sh
 ```
+^ This works only for Debian-based Linux distros but that is largely because of `apt install` in setup-all.sh which other distros likely will not support, you can change this to your specific package manager and it should work... 
