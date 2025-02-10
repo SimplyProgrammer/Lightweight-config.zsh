@@ -6,11 +6,10 @@ echo Installing...
 
 plugins=('zsh-autosuggestions' 'zsh-completions' 'zsh-syntax-highlighting')
 
-for plugin in "${plugins[@]}"; do
-	 git clone "https://github.com/zsh-users/${plugin}" "/usr/share/zsh/plugins/${plugin}"
-done
-
 apt install zsh
+for plugin in "${plugins[@]}"; do
+	  mkdir -p  && cd "$_" && git clone "https://github.com/zsh-users/${plugin}" "/usr/share/zsh/plugins/${plugin}"
+done
 
 ./build.sh
 grep -qxF "ZDOTDIR=$(pwd)" /etc/zsh/zshenv || echo "ZDOTDIR=$(pwd)" >> /etc/zsh/zshenv # Doing this manually might be required on some systems...
