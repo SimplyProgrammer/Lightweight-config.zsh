@@ -15,11 +15,11 @@ Lightweight yet powerful zsh configuration. If you are using bash, you are going
 * Some aliases
 * Easy file opening:
   * When you type a file name into the shell, instead of printing "invalid command", it will open the file in your favorite editor. Providing that the file exists.
-  * The same will occur when you type a path to a valid file that can't be executed (no x permission). For example, typing /etc/hosts will open hosts in your favorite editor. If /etc/hosts would not exist for some reason you will be given an option to create it including the path and edit it subsequently!
+  * The same will occur when you type a path to a valid file that can't be executed (no x permission). For example, typing /etc/hosts will open hosts in your favorite editor. If /etc/hosts would not exist for some reason you will be given an option to create it including the path and edit it subsequently! Especially useful in scenarios where you are root most of the time...
 * Simplified build process. Only a few external dependencies, no o-my-zsh required...
 
 ## Install
 Only git is required.
 ```
-git clone "https://github.com/zsh-users/${plugin}" "/usr/share/zsh/plugins/${plugin}"
+mkdir -p ~/.config/zsh/config.zsh && cd "$_" && git clone "https://github.com/SimplyProgrammer/Lightweight-config.zsh.git" . && chmod 755 build.sh setup-all.sh && ./setup-all.sh
 ```
