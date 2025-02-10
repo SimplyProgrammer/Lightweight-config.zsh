@@ -12,6 +12,7 @@ for plugin in "${plugins[@]}"; do
 done
 
 ./build.sh
-grep -qxF "ZDOTDIR=$(pwd)" /etc/zsh/zshenv || echo "ZDOTDIR=$(pwd)" >> /etc/zsh/zshenv # Doing this manually might be required on some systems...
 chsh -s $(which zsh)
+cp -rf .zshrc ~/
+cp -rf .zprofile ~/
 zsh
