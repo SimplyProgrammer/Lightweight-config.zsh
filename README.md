@@ -8,7 +8,7 @@ Lightweight yet powerful zsh configuration. If you are using bash, you are going
 * And more...
 <be>
 
-"Silent" fork of https://git.sr.ht/~ashie/config.zsh
+"Silent" fork of https://git.sr.ht/~ashie/config.zsh (it does not support forks)
 <be>
 
 ## Additional features:
