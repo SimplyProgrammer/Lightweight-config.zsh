@@ -15,5 +15,5 @@ done
 chsh -s $(which zsh)
 cp -rf .zshrc ~/
 cp -rf .zprofile ~/
-chmod u+x .zshrc .zprofile
+cd ~ && chmod u+x .zshrc .zprofile
 zsh
