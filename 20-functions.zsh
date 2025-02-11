@@ -154,6 +154,10 @@ TRAPZERR() {
            return 0
         fi
     elif [[ $exit_status -eq 127 ]]; then # Does not exist
+        if [[ -f "$file" ]]; then
+            return 0 # Should not happen
+        fi
+
         local dir=$(dirname $file)
         if read -q "choice?Do you want to create $file? [y/N] "; then
            mkdir -p $dir && touch $file
