@@ -20,7 +20,7 @@ Lightweight yet powerful zsh configuration. If you are using bash, you are going
 
 ## Install
 It should be compatible with any POSIX-compliant system that supports zsh.
-Only git is required (End pressing Y couple of times).
+Only git is required.
 ```
 mkdir -p ~/.config/zsh/config.zsh && cd "$_" && git clone "https://github.com/SimplyProgrammer/Lightweight-config.zsh.git" . && chmod 755 build.sh setup-all.sh && ./setup-all.sh
 ```
