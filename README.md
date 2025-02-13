@@ -6,23 +6,28 @@ Lightweight yet powerful zsh configuration. If you are using bash, you are going
 * Smart suggestions
 * Easy navigation, no cd needed
 * And more...
-<be>
+<br>
 
 "Silent" fork of https://git.sr.ht/~ashie/config.zsh or https://codeberg.org/ashie/config.zsh (neither of those can be forked to GitHub but all props to them...)
-<be>
+<br>
 
 ## Additional features:
 * Some aliases
 * Easy file opening:
   * When you type a file name into the shell, instead of printing "invalid command", it will open the file in your favorite editor. Providing that the file exists.
-  * The same will occur when you type a path to a valid file that can't be executed (no x permission). For example, typing /etc/hosts will open hosts in your favorite editor. If /etc/hosts would not exist for some reason you will be given an option to create it including the path and edit it subsequently! Especially useful in scenarios where you are root most of the time...
+  * The same will occur when you type a path to a valid file that can't be executed (no x permission). For example, typing /etc/hosts (or e /etc/hosts) will open hosts in your favorite editor. If /etc/hosts would not exist for some reason you will be given an option to create it including the path and edit it subsequently! Especially useful in scenarios where you are root most of the time...
 * Simplified build process. Only a few external dependencies, no o-my-zsh required...
+* Partial Windows Subsystem for Linux (WSL) integration:
+  * You can run 99% of windows command like if they were native linux commands, without necesity of writing .exe at the end, for example `ipconfig` or `assoc`. But 90% of the times, completions and suggestions will not will not work with windows commands.
+  * Some commands that are same on both Windows and Linux are aliased with 'w' prefix, for example `wping`, `wecho` or `wset`.
 
 ## Install
 It should be compatible with any POSIX-compliant system that supports zsh.
-Only git is required.
+Only git is required (End pressing Y couple of times).
 ```
 mkdir -p ~/.config/zsh/config.zsh && cd "$_" && git clone "https://github.com/SimplyProgrammer/Lightweight-config.zsh.git" . && chmod 755 build.sh setup-all.sh && ./setup-all.sh
 ```
-^ This works only for Debian-based Linux distros but that is largely because of `apt install` in setup-all.sh which other distros likely will not support, you can change this to your specific package manager and it should work...<br>
-Note: If you get a permission error, you may need to rerun `sudo ./setup-all.sh`.
+^ This works only for Debian-based Linux distros but that is largely because of `apt install` in setup-all.sh which other distros likely will not support, you can change this to your specific package manager and it should work... 
+<br>
+
+For WSL you should also run `prep-wsl.sh` after running `setup-all.sh`

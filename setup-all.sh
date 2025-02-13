@@ -2,8 +2,6 @@
 
 # apt install git  is required...
 # download zsh-users plugins
-echo Installing...
-
 plugins=('zsh-autosuggestions' 'zsh-completions' 'zsh-syntax-highlighting')
 
 if command -v sudo &>/dev/null; then

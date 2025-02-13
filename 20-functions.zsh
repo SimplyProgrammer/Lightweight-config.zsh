@@ -125,12 +125,15 @@ function __fav_file_editor() {
       $(update-alternatives --query editor | awk '/Value:/ {print $2}') "$@"
    fi
 }
+alias e="__fav_file_editor"
 
 command_not_found_handler() {
    if [[ -o interactive ]]; then # Kinda retarded
       if [[ -w $1 ]]; then # Command does not exist but file does...
           __fav_file_editor $1
           return 0
+      elif type cmd.exe >/dev/null 2>&1; then
+          cmd.exe /C $1
       else
           echo zsh command_not_found_handler: command or file not found: $@ >&2
           return 1
