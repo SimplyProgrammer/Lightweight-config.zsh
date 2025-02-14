@@ -9,7 +9,7 @@ fi
 
 winUser=$1
 if [[ -z "$winUser" ]]; then
-    winUser=$(cmd.exe /c set | grep -P 'USERNAME' | cut -c 10-)
+    winUser=$(cmd.exe /c set | grep -P 'USERNAME' | cut -c 10- | tr -d '\r')
 fi
 
 if [[ ! ":$PATH:" == *:/mnt/c/Windows/system32:* ]]; then
@@ -20,6 +20,8 @@ fi
 links=('Desktop' 'Documents' 'Downloads')
 
 for link in "${links[@]}"; do
+	echo "/mnt/c/Users/$winUser/$link <- $HOME/$link"
+
     [[ ! -L "$HOME/$link" ]] && ln -s "/mnt/c/Users/$winUser/$link" "$HOME/$link"
 done
 
