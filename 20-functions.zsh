@@ -145,6 +145,7 @@ preexec() {
     REAL_LAST_CMD="$1"
 }
 
+
 TRAPZERR() {
     local exit_status=$?
     local file=$(echo "$REAL_LAST_CMD" | awk '{print $1}')
@@ -169,5 +170,3 @@ TRAPZERR() {
         fi
     fi
 }
-
-

@@ -1,20 +1,27 @@
 if type cmd.exe >/dev/null 2>&1; then # Is wsl (should be sufficient)
 	alias ~~="cd $HOME/Desktop"
-	alias start="cmd.exe /C start"
-	alias wecho="cmd.exe /C echo"
-	alias wdir="cmd.exe /C dir"
-	alias wping="cmd.exe /C ping"
-	alias wset="cmd.exe /C set"
-	alias assoc="cmd.exe /C assoc"
+	alias cmdc="cmd.exe /C"
+	alias start="cmdc start"
+	alias wecho="cmdc echo"
+	alias wdir="cmdc dir"
+	alias wping="cmdc ping"
+	alias wset="cmdc set"
+	alias wfind="cmdc find"
+	alias assoc="cmdc assoc"
 
 	zstyle ':completion:*' ignored-patterns '*.dll'
 	zstyle ':completion:*' ignored-patterns '*.exe'
 
-	# This is slow and retarded way of doing this but zsh was not cooperative...
+	# This is slow and retarded way of doing this but it kills too flies in on swing and zsh hooks are too retarded for this...
 	for winCmd in $(compgen -c | grep -F '.exe'); do
 		cmd="${winCmd%%.*}"
 	    alias "$cmd"="$winCmd"
 	done
+	unalias find
+
+	type mvn >/dev/null 2>&1 && alias mvn="cmdc mvn"
+	type gradle >/dev/null 2>&1 && alias gradle="cmdc gradle"
+	type python >/dev/null 2>&1 && alias python="cmdc python"
 
 	# Export host/win env vars
 	# cmd.exe /c set | grep -P 'home(?=.*=)' | while IFS='=' read -r var val; do

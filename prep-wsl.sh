@@ -20,8 +20,11 @@ fi
 links=('Desktop' 'Documents' 'Downloads')
 
 for link in "${links[@]}"; do
-	echo "/mnt/c/Users/$winUser/$link <- $HOME/$link"
-
-    [[ ! -L "$HOME/$link" ]] && ln -s "/mnt/c/Users/$winUser/$link" "$HOME/$link"
+    [[ ! -L "$HOME/$link" ]] && echo "/mnt/c/Users/$winUser/$link <- $HOME/$link" && ln -s "/mnt/c/Users/$winUser/$link" "$HOME/$link"
 done
 
+# .folders from win user. Only .folders, .files may cause conflicts 
+for path in $(find "/mnt/c/Users/$winUser/" -maxdepth 1 -type d -name ".*" ! -name "* *"); do
+	file=$(basename $path)
+    [[ ! -L "$HOME/$file" ]] && echo "$path <- $HOME/$file" && ln -s "$path" "$HOME/$file"
+done
