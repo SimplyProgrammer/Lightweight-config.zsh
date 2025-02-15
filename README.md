@@ -20,6 +20,7 @@ Lightweight yet powerful zsh configuration. If you are using bash, you are going
 * Partial Windows Subsystem for Linux (WSL) integration:
   * You can run 99% of Windows commands like if they were native Linux commands, without necessity of writing .exe at the end, for example, `ipconfig` or `assoc`. But 90% of the times, completions and suggestions will not will not work with Windows commands.
   * Some commands that are same on both Windows and Linux are aliased with 'w' prefix, for example `wping`, `wecho` or `wset`.
+  * Support for opening .lnk files (windows symlinks) in a "windows friendly" fashion.
 
 ## Install
 It should be compatible with any POSIX-compliant system that supports zsh.

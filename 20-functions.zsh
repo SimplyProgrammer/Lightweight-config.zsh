@@ -131,20 +131,19 @@ command_not_found_handler() {
    if [[ -o interactive ]]; then # Kinda retarded
       if [[ -w $1 ]]; then # Command does not exist but file does...
           __fav_file_editor $1
-          return 0
-      elif type cmd.exe >/dev/null 2>&1; then
+      elif type cmd.exe >/dev/null 2>&1; then # WSL
           cmd.exe /C $1
       else
           echo zsh command_not_found_handler: command or file not found: $@ >&2
           return 1
       fi
+      return 0
    fi
 }
 
 preexec() {
     REAL_LAST_CMD="$1"
 }
-
 
 TRAPZERR() {
     local exit_status=$?
@@ -154,6 +153,10 @@ TRAPZERR() {
         #exec &2>/dev/null
 
         if [[ -f "$file" ]]; then
+           if [[ $file == *.lnk ]] && type cmd.exe >/dev/null 2>&1; then
+              cmd.exe /C $(wslpath -w $file)
+			  return 0
+           fi
            __fav_file_editor $file
            return 0
         fi
