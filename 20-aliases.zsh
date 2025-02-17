@@ -23,7 +23,8 @@ if [[ -n "${GET_ROOT}" ]]; then
     compdef "_${GET_ROOT}" _="${GET_ROOT}"
 fi
 
-alias apro='apropos'
+alias '??'='apropos'
+
 alias cls='clear'
 alias la='ls -a'
 alias ll='ls -al'
