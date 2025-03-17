@@ -15,8 +15,22 @@ if type cmd.exe >/dev/null 2>&1; then # Is wsl (should be sufficient)
 	# This is slow and retarded way of doing this but it kills too flies in on swing and zsh hooks are too retarded for this...
 	for winCmd in $(compgen -c | grep -F '.exe'); do
 		cmd="${winCmd%%.*}"
-	    alias "$cmd"="$winCmd"
+
+		# if type "$cmd" >/dev/null 2>&1; then
+	        alias "w$cmd"="$winCmd"
+	    # else
+	        # alias "$cmd"="$winCmd"
+	    # fi
 	done
+
+	# compgen -c | grep -F '.exe' | xargs -I {} -P 4 zsh -c '
+	    # cmd="${1%%.*}"
+	    # if command -v "$cmd" >/dev/null 2>&1; then
+	        # alias "w$cmd"="$1"
+	    # else
+	        # alias "$cmd"="$1"
+	    # fi
+	# ' _ {}
 	unalias find
 
 	type mvn >/dev/null 2>&1 && alias mvn="cmdc mvn"
