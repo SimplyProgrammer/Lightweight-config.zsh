@@ -31,7 +31,7 @@ if type cmd.exe >/dev/null 2>&1; then # Is wsl (should be sufficient)
 	        # alias "$cmd"="$1"
 	    # fi
 	# ' _ {}
-	unalias find
+	unalias find >/dev/null 2>&1
 
 	type mvn >/dev/null 2>&1 && alias mvn="cmdc mvn"
 	type gradle >/dev/null 2>&1 && alias gradle="cmdc gradle"
