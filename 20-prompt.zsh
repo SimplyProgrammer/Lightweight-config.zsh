@@ -38,14 +38,14 @@ _current_dir_prompt() {
 
 PROMPT=''
 prompt_parts=(
-    '╭─'
+    '┌'
     '$(_ssh_before_prompt)'
     '%B%(!.%F{red}.%F{green})%n%f%b'
     '$(_ssh_after_prompt)'
     ' $(_current_dir_prompt)'
     ' $(git_prompt_info)'
     '$(_venv_prompt_info)'
-    $'\n╰─%B%(!.#.$)%b '
+    $'\n└%B%(!.#.$)%b '
 )
 
 for part in "${prompt_parts[@]}"; do
