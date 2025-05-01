@@ -34,24 +34,22 @@ detach() {
 }
 compdef _command detach
 
-iscommand incus && incus-login() {
-    local name="${1}"
-    shift
-
-    incus exec "${name}" -- sudo --user user --login -- "${@}"
+detache() {
+    detach "${@}" && exit
 }
+compdef _command detache
 
-iscommand pip && pip() {
-    if [[ -z "${VIRTUAL_ENV}" ]]; then
-        echo "${0}: use outside virtualenv prohibited" >&2
-        return 1
-    fi
+if iscommand incus; then
+    incus-login() {
+        local name="${1}"
+        shift
 
-    command pip "${@}"
-}
+        incus exec "${name}" -- sudo --user user --login -- "${@}"
+    }
+fi
 
 iscommand python && venv() {
-    local activate="${1}${1+:/}bin/activate"
+    local activate="${1}${1:+/}bin/activate"
 
     if [[ -f "${activate}" ]]; then
         source "${activate}"
@@ -70,7 +68,32 @@ not() {
 :qa() {
     [[ -z "${NVIM}" ]] && exit
 
-    /usr/bin/nvim --headless --server "${NVIM}" --remote-send '<Cmd>qa<cr>'
+    command nvim --headless --server "${NVIM}" --remote-send '<Cmd>qa<cr>'
+}
+
+iscommand nvim && nvim() {
+    if [ -z "${NVIM}" ]; then
+        command nvim "${@}"
+        return
+    fi
+
+    ERROR="ERROR: \`$(basename "${0}") ${*}\`: already inside nvim"
+
+    if [ ${#} -eq 0 ]; then
+        echo "${ERROR}"
+        return 1
+    fi
+
+    args=()
+    for arg in "${@}"; do
+        if [ "${arg:0:1}" = '-' ] || [ "${arg:0:1}" = '+' ]; then
+            command nvim "${@}"
+            return
+        fi
+        args+=("$(pwd)/$(basename "${arg}")")
+    done
+
+    command nvim --headless --server "${NVIM}" --remote "${args[@]}"
 }
 
 iscommand qrencode && qr() {
@@ -80,15 +103,56 @@ iscommand qrencode && qr() {
     qrencode "${text}" -m 4 -t UTF8
 }
 
-wcat() {
-    if [[ $# -ne 1 ]]; then
-        echo "${0}: needs exactly one argument" >&2
+
+iscommand ssh-add && ssh-addq() {
+    NAME="${1}"
+    [ "${NAME}" = "main" ] && NAME=id
+    ssh-add "${HOME}/.ssh/${NAME}_ed25519"
+}
+
+iscommand ssh && sshq() {
+    KEY_FILE="$(ssh -G "${1}" | grep identityfile | awk '{print $2}')"
+    KEY_FILE="${KEY_FILE/\~/${HOME}}"
+
+    if ! ssh-add -l | grep -Fq "$(ssh-keygen -lf "${KEY_FILE}")"; then
+        ssh-add "${KEY_FILE}"
+    fi
+
+    ssh "${1}"
+}
+
+_which_func() {
+    local func="${1}"
+    shift
+
+    if [[ $# -eq 0 ]]; then
+        echo "${func}: needs at least one argument" >&2
         return 1
     fi
 
-    cat "$(which "${1}")"
+    local bin="$(which "${@[-1]}")"
+    if [[ $? -ne 0 ]]; then
+        echo "${0}: couldn't find ${@[-1]}" >&2
+        return 1
+    fi
+
+    "${func}" ${@:1:-1} "${bin}"
+}
+
+wcat() {
+    _which_func cat "${@}"
 }
 compdef _command wcat
+
+wfile() {
+    _which_func file "${@}"
+}
+compdef _command wfile
+
+wstat() {
+    _which_func stat "${@}"
+}
+compdef _command wstat
 
 _current_dir() {
     local path="${PWD/#${HOME}/~}"
@@ -112,4 +176,3 @@ _current_dir() {
 
     echo -n "${path}"
 }
-
