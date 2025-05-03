@@ -36,6 +36,8 @@ alias :q='exit'
 # I keep mistyping this because of colemak
 alias Oqa=':qa'
 
+iscommand apk-perma && compdef _apk apk-perma=apk
+
 # ask for confirmation before overwrite
 alias cp='cp -iv'
 alias ln='ln -bv'
@@ -47,6 +49,7 @@ iscommand diff && alias diff='diff --color'
 
 if iscommand git && [[ -d ~/.files.git ]]; then
     alias dotfiles='git --git-dir=$HOME/.files.git --work-tree=$HOME'
+    alias dotfiles-commit='dotfiles commit -m "$(date +%Y-%m-%d_%H:%M)"'
     compdef _git dotfiles=git
 fi
 
@@ -84,17 +87,28 @@ iscommand ssh-add && [[ -f ~/.ssh/id_ed25519 ]] \
 
 iscommand tree && alias tree='tree -C'
 
+iscommand perl && alias perl='perl -w'
+
+iscommand pip && alias pip='pip --require-virtualenv'
+
 iscommand python && alias virtualenv='python -m venv'
+
+iscommand petname && alias set-petname='export PETNAME="$(petname)"'
 
 if iscommand yt-dlp; then
     alias yt='yt-dlp'
     compdef _yt-dlp yt=yt-dlp
 fi
 
+iscommand jj && alias jj='jj --no-pager'
+
 iscommand jq && alias urlencode='jq -sRr @uri'
 
 iscommand cargo \
     && alias cargo-workspace-doc='cargo doc --offline --open --target-dir ~/.cache/ --workspace'
+
+iscommand jq wget && \
+    alias am-i-mullvad='wget -O - https://am.i.mullvad.net/json | jq'
 
 iscommand wl-paste qrencode \
     && alias qrpaste='wl-paste -n | qrencode -m 4 -t UTF8'

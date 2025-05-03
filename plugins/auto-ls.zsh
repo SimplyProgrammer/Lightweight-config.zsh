@@ -72,9 +72,9 @@ auto-ls() {
     fi
 }
 
-zle -N auto-ls
-zle -N accept-line auto-ls
+# zle -N auto-ls
+# zle -N accept-line auto-ls
 
-if [[ ${AUTO_LS_CHPWD} == true && ${chpwd_functions[(I)auto-ls]} -eq 0 ]]; then
-    chpwd_functions+=(auto-ls)
-fi
+# if [[ ${AUTO_LS_CHPWD} == true && ${chpwd_functions[(I)auto-ls]} -eq 0 ]]; then
+#     chpwd_functions+=(auto-ls)
+# fi
