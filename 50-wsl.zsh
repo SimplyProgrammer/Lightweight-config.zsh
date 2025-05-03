@@ -13,16 +13,16 @@ if type cmd.exe >/dev/null 2>&1; then # Is wsl (should be sufficient)
 	zstyle ':completion:*' ignored-patterns '*.exe'
 
 	# This is slow and retarded way of doing this but it kills multiple flies in on swing and zsh hooks are too retarded for this...
-	declare -A winCmdsCache
+	declare -A cmdsCache
 	while IFS= read -r cmd; do
-	    winCmdsCache["$cmd"]=1
+	    cmdsCache["$cmd"]=1
 	done < <(compgen -c)
 
 	for winCmd in $(compgen -c | grep -F '.exe'); do
 	# compgen -c | grep -F '.exe' | while IFS= read -r winCmd; do
 	    cmd="${winCmd%%.*}"
 	
-	    if [[ -n "${winCmdsCache[$cmd]}" ]]; then
+	    if [[ -n "${cmdsCache[$cmd]}" ]]; then
 	        alias "w$cmd"="$winCmd"
 	    else
 	        alias "$cmd"="$winCmd"
