@@ -12,25 +12,23 @@ if type cmd.exe >/dev/null 2>&1; then # Is wsl (should be sufficient)
 	zstyle ':completion:*' ignored-patterns '*.dll'
 	zstyle ':completion:*' ignored-patterns '*.exe'
 
-	# This is slow and retarded way of doing this but it kills too flies in on swing and zsh hooks are too retarded for this...
+	# This is slow and retarded way of doing this but it kills multiple flies in on swing and zsh hooks are too retarded for this...
+	declare -A winCmdsCache
+	while IFS= read -r cmd; do
+	    winCmdsCache["$cmd"]=1
+	done < <(compgen -c)
+
 	for winCmd in $(compgen -c | grep -F '.exe'); do
-		cmd="${winCmd%%.*}"
-
-		# if type "$cmd" >/dev/null 2>&1; then
+	# compgen -c | grep -F '.exe' | while IFS= read -r winCmd; do
+	    cmd="${winCmd%%.*}"
+	
+	    if [[ -n "${winCmdsCache[$cmd]}" ]]; then
 	        alias "w$cmd"="$winCmd"
-	    # else
-	        # alias "$cmd"="$winCmd"
-	    # fi
+	    else
+	        alias "$cmd"="$winCmd"
+	    fi
 	done
-
-	# compgen -c | grep -F '.exe' | xargs -I {} -P 4 zsh -c '
-	    # cmd="${1%%.*}"
-	    # if command -v "$cmd" >/dev/null 2>&1; then
-	        # alias "w$cmd"="$1"
-	    # else
-	        # alias "$cmd"="$1"
-	    # fi
-	# ' _ {}
+	
 	unalias find >/dev/null 2>&1
 
 	type mvn >/dev/null 2>&1 && alias mvn="cmdc mvn"
