@@ -34,6 +34,8 @@ if type cmd.exe >/dev/null 2>&1; then # Is wsl (should be sufficient)
 	type mvn >/dev/null 2>&1 && alias mvn="cmdc mvn"
 	type gradle >/dev/null 2>&1 && alias gradle="cmdc gradle"
 	type python >/dev/null 2>&1 && alias python="cmdc python"
+	type npm >/dev/null 2>&1 && alias npm="cmdc npm"
+	type npx >/dev/null 2>&1 && alias npx="cmdc npx"
 
 	# Export host/win env vars
 	# cmd.exe /c set | grep -P 'home(?=.*=)' | while IFS='=' read -r var val; do
