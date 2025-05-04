@@ -19,7 +19,6 @@ done
 $SUDO ./build.sh
 
 $SUDO chsh -s "$(which zsh)" "$(whoami)"
-cp -rf .zshrc "$HOME/"
-cp -rf .zprofile "$HOME/"
+cp -rf .zshrc .zprofile .zshenv "$HOME/"
 chmod u+x "$HOME/.zshrc" "$HOME/.zprofile"
 exec zsh
