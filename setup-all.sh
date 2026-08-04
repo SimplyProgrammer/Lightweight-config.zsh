@@ -109,8 +109,8 @@ done
 
 $SUDO ./build.sh
 
-cp -rf .zshrc .zprofile .zshenv "$TARGET_HOME/"
-chmod u+x "$TARGET_HOME/.zshrc" "$TARGET_HOME/.zprofile"
+$SUDO cp -rf .zshrc .zprofile .zshenv "$TARGET_HOME/"
+$SUDO chmod u+x "$TARGET_HOME/.zshrc" "$TARGET_HOME/.zprofile"
 $SUDO chown "$TARGET_USER" "$TARGET_HOME/.zshrc" "$TARGET_HOME/.zprofile" "$TARGET_HOME/.zshenv"
 
 if [ "$(id -un)" = "$TARGET_USER" ] && command -v chsh >/dev/null 2>&1 && confirm "Change $TARGET_USER's default shell to zsh?"; then
