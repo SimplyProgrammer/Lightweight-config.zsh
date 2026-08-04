@@ -85,7 +85,7 @@ TARGET_USER="$(id -un)"
 TARGET_HOME="$HOME"
 if [ "$(id -u)" -eq 0 ] || [ "$1" = "newuser" ]; then
     echo "Running as $TARGET_USER."
-    printf "Create a separate login user for Zsh? (leave blank to continue as $TARGET_USER): "
+    printf "Create a new privileged user for Zsh? (leave blank to continue as $TARGET_USER): "
     read -r NEWUSER
 
     if [ -n "$NEWUSER" ]; then
@@ -120,7 +120,7 @@ fi
 
 if [ "$TARGET_USER" != "$(id -un)" ]; then
     echo
-    echo "To start using the new account with zsh:"
+    echo "To start using the new account with Zsh:"
     echo "    su - $TARGET_USER"
 else
     exec zsh
