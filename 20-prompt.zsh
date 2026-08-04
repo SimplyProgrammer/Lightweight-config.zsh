@@ -15,7 +15,7 @@ _venv_prompt_info() {
         fi
 
         printf '<%%F{green}%s%%f>' "${venv}"
-    elif sh -c 'export DIR="$(pwd)"; while [ "$(realpath "${DIR}")" != '/' ]; do [ -f "${DIR}/bin/activate" ] && { exit 0; break; }; DIR="${DIR}/.."; done; exit 1' || 
+    elif sh -c 'export DIR="$(pwd)"; while [ "$(command -v realpath >/dev/null 2>&1 && realpath "${DIR}" || readlink -f "${DIR}")" != '/' ]; do [ -f "${DIR}/bin/activate" ] && { exit 0; break; }; DIR="${DIR}/.."; done; exit 1' || 
         [[ -f venv/bin/activate ]]
     then
         # the thing above does not work in zsh
