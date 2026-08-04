@@ -59,19 +59,23 @@ create_admin_user() {
     ZSH_PATH="$(command -v zsh)"
     ADMIN_GROUP=root
 
-    if grep -q '^sudo:' /etc/group; then
-        ADMIN_GROUP=sudo
-    elif grep -q '^wheel:' /etc/group; then
-        ADMIN_GROUP=wheel
-    fi
-    
-    if command -v adduser >/dev/null 2>&1; then
-        $SUDO adduser --ingroup "$ADMIN_GROUP" --shell "$ZSH_PATH" "$USR"
-    elif command -v useradd >/dev/null 2>&1; then
-        $SUDO useradd -m -g "$ADMIN_GROUP" -s "$ZSH_PATH" "$USR"
+    if id "$USR" >/dev/null 2>&1; then
+        echo "User '$USR' already exists. Skipping creation."
     else
-        echo "No user creation utility found."
-        exit 1
+        if grep -q '^sudo:' /etc/group; then
+           ADMIN_GROUP=sudo
+        elif grep -q '^wheel:' /etc/group; then
+            ADMIN_GROUP=wheel
+        fi
+    
+        if command -v adduser >/dev/null 2>&1; then
+            $SUDO adduser --ingroup "$ADMIN_GROUP" --shell "$ZSH_PATH" "$USR"
+        elif command -v useradd >/dev/null 2>&1; then
+            $SUDO useradd -m -g "$ADMIN_GROUP" -s "$ZSH_PATH" "$USR"
+        else
+            echo "No user creation utility found."
+            exit 1
+        fi
     fi
 
     echo "User '$USR' created."
