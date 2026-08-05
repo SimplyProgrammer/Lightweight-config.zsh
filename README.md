@@ -24,11 +24,16 @@ Lightweight yet powerful zsh configuration. If you are using bash, you are going
 
 ## Install
 It should be compatible with any POSIX-compliant system that supports zsh.
-Only git is required.
+Only `git` is required.
 ```bash
 mkdir -p ~/.config/zsh/config.zsh && cd "$_" && git clone "https://github.com/SimplyProgrammer/Lightweight-config.zsh.git" . && chmod 755 build.sh setup-all.sh && ./setup-all.sh
 ```
-^ This works only for Debian-based Linux distros but that is largely because of `apt install` in setup-all.sh which other distros likely will not support, you can change this to your specific package manager and it should work... 
+But note that it was sucesfully used only with:
+* Debian
+* Ubuntu
+* Kali Linux
+* Rocky Linux
+* OpenWrt (BusyBox v1.37.0) - Yes even OpenWrt is supported however separate user creation is strongly advised during setup, which will require you to install `shadow-useradd` (and `shadow-su` depending on your workflow) and properly configure `sudo` or `doas` to get it working properly.
 
 ^ If this refuses to run with error saying something like `/bin/bash^M` does not exist, you likely need to "de-DOSify" the line breaks with:
 ```bash
