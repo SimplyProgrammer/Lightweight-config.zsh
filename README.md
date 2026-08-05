@@ -12,13 +12,13 @@ Lightweight yet powerful zsh configuration. If you are using bash, you are going
 <br>
 
 ## Additional features:
-* Some aliases
+* Some built-in aliases
 * Easy file opening:
   * When you type a file name into the shell, instead of printing "invalid command", it will open the file in your favorite editor. Providing that the file exists.
-  * The same will occur when you type a path to a valid file that can't be executed (no x permission). For example, typing /etc/hosts (or e /etc/hosts) will open hosts in your favorite editor. If /etc/hosts would not exist for some reason you will be given an option to create it including the path and edit it subsequently! Especially useful in scenarios where you are root most of the time...
+  * The same will occur when you type a path to a valid file that can't be executed (no x permission). For example, typing /etc/hosts (or e /etc/hosts) will open hosts in your favorite editor. If /etc/hosts does not exist for some reason you will be given an option to create it including the path and edit it subsequently! Especially useful in scenarios where you are root most of the time...
 * Simplified build process. Only a few external dependencies, no o-my-zsh required...
 * Partial Windows Subsystem for Linux (WSL) integration:
-  * You can run 99% of Windows commands like if they were native Linux commands, without necessity of writing .exe at the end, for example, `ipconfig` or `assoc`. But 90% of the times, completions and suggestions will not will not work with Windows commands.
+  * You can run 99% of Windows commands like if they were native Linux commands, without necessity of writing .exe at the end, for example, `ipconfig` or `assoc`. But 90% of the times, completions and suggestions will not work with Windows commands.
   * Some commands that are same on both Windows and Linux are aliased with 'w' prefix, for example `wping`, `wecho` or `wset`.
   * Support for opening .lnk files (windows symlinks) in a "windows friendly" fashion.
 
@@ -28,12 +28,13 @@ Only `git` is required.
 ```bash
 mkdir -p ~/.config/zsh/config.zsh && cd "$_" && git clone "https://github.com/SimplyProgrammer/Lightweight-config.zsh.git" . && chmod 755 build.sh setup-all.sh && ./setup-all.sh
 ```
-But note that it was sucesfully used only with:
+But note that it was successfully used only with:
 * Debian
 * Ubuntu
 * Kali Linux
 * Rocky Linux
-* OpenWrt (BusyBox v1.37.0) - Yes even OpenWrt is supported however separate user creation is strongly advised during setup, which will require you to install `shadow-useradd` (and `shadow-su` depending on your workflow) and properly configure `sudo` or `doas` to get it working properly.
+* OpenWrt (BusyBox v1.37.0) - Yes even OpenWrt is supported, but it's highly advised against setting Zsh as the default shell of the root user as this might brick your device. Simply run `zsh` after each login.\
+Alternatively, separate admin user creation is advised during setup, which will require you to install `shadow-useradd` (and `shadow-su` depending on your workflow) and properly configure `sudo` or `doas`.
 
 ^ If this refuses to run with error saying something like `/bin/bash^M` does not exist, you likely need to "de-DOSify" the line breaks with:
 ```bash
